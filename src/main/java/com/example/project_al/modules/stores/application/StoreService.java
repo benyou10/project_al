@@ -74,7 +74,7 @@ public class StoreService {
     public void deleteStore(Long id) {
         Store store = storeRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Store not found"));
-        store.setActive(false);
+        store.setIsActive(false); // CHANGED: setActive(false) -> setIsActive(false)
         storeRepository.save(store);
     }
 
@@ -89,5 +89,23 @@ public class StoreService {
                 .orElseThrow(() -> new RuntimeException("Store not found"));
         store.confirm(order);
         storeRepository.save(store);
+    }
+
+    // Additional useful methods
+    public void activateStore(Long id) {
+        Store store = storeRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Store not found"));
+        store.setIsActive(true); // NEW: Method to activate a store
+        storeRepository.save(store);
+    }
+
+    public List<Store> findActiveStores() {
+        // Add this method to StoreRepository first
+        return storeRepository.findByIsActiveTrue();
+    }
+
+    public List<Store> findActiveStoresBySeller(Long sellerId) {
+        // Add this method to StoreRepository first
+        return storeRepository.findBySellerIdAndIsActiveTrue(sellerId);
     }
 }

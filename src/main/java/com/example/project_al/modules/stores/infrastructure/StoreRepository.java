@@ -27,8 +27,17 @@ public interface StoreRepository extends JpaRepository<Store, Long> {
     @Query("SELECT s FROM Store s WHERE s.grade = :grade")
     List<Store> findByGrade(@Param("grade") String grade);
 
-    @Query("SELECT s FROM Store s WHERE s.seller.id = :sellerId AND s.active = true")
+    @Query("SELECT s FROM Store s WHERE s.seller.id = :sellerId AND s.isActive = true") // CHANGED: active -> isActive
     List<Store> findActiveBySellerId(@Param("sellerId") Long sellerId);
 
     boolean existsByNomStore(String nomStore);
+
+    // NEW METHODS to add:
+    List<Store> findByIsActiveTrue();
+
+    @Query("SELECT s FROM Store s WHERE s.seller.id = :sellerId AND s.isActive = true")
+    List<Store> findBySellerIdAndIsActiveTrue(@Param("sellerId") Long sellerId);
+
+    @Query("SELECT s FROM Store s WHERE s.isActive = true")
+    Page<Store> findActiveStores(Pageable pageable);
 }

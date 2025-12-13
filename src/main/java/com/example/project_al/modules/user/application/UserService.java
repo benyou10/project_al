@@ -120,14 +120,14 @@ public class UserService {
     public void deactivateUser(Long userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
-        user.setActive(false);
+        user.setIsActive(false); // CHANGED: setActive(false) -> setIsActive(false)
         userRepository.save(user);
     }
 
     public void activateUser(Long userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
-        user.setActive(true);
+        user.setIsActive(true); // CHANGED: setActive(true) -> setIsActive(true)
         userRepository.save(user);
     }
 

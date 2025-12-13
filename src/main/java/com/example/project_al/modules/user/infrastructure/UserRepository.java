@@ -32,8 +32,17 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query("SELECT u FROM User u WHERE u.nom LIKE %:keyword%")
     Page<User> searchByNom(@Param("keyword") String keyword, Pageable pageable);
 
-    @Query("SELECT u FROM User u WHERE u.email = :email AND u.active = true")
+    @Query("SELECT u FROM User u WHERE u.email = :email AND u.isActive = true") // CHANGED: active -> isActive
     Optional<User> findActiveByEmail(@Param("email") String email);
 
     List<User> findByUserListId(Integer userListId);
+
+    // Add these methods if needed:
+    List<User> findByIsActiveTrue();
+
+    @Query("SELECT u FROM User u WHERE u.isActive = true AND TYPE(u) = Buyer")
+    List<Buyer> findActiveBuyers();
+
+    @Query("SELECT u FROM User u WHERE u.isActive = true AND TYPE(u) = Seller")
+    List<Seller> findActiveSellers();
 }

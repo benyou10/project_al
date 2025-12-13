@@ -50,6 +50,11 @@ public class Product extends BaseEntity {
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Review> reviews = new ArrayList<>();
 
+    // REMOVED: private Boolean active = true; // This is already in BaseEntity
+
+    @Column(name = "average_rating")
+    private Double averageRating = 0.0;
+
     public void command() {
         System.out.println("Product " + name + " has been commanded");
     }

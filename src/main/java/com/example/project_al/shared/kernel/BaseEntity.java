@@ -1,4 +1,3 @@
-// src/main/java/com/ecommerce/shared/kernel/BaseEntity.java
 package com.example.project_al.shared.kernel;
 
 import jakarta.persistence.*;
@@ -30,4 +29,7 @@ public abstract class BaseEntity {
 
     @Version
     private Integer version;
+
+    @Column(name = "is_active")
+    private Boolean isActive = true; // Changed from 'active' to 'isActive'
 }

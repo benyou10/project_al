@@ -1,17 +1,20 @@
-
-// modules/order/domain/OrderStatus.java
 package com.example.project_al.modules.order.domain;
 
 public enum OrderStatus {
     PENDING,
     PLACED,
-    PAID,
+    CONFIRMED,
     PROCESSING,
     SHIPPED,
     DELIVERED,
-    CANCELLED;
+    CANCELLED,
+    REFUNDED;
 
     public boolean canCancel() {
         return this == PENDING || this == PLACED;
+    }
+
+    public boolean canPay() {
+        return this == PLACED || this == CONFIRMED;
     }
 }

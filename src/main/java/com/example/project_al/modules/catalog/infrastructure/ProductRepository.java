@@ -40,4 +40,8 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     @Query("SELECT p FROM Product p WHERE p.price <= :maxPrice AND p.quantity > 0")
     List<Product> findAffordableProducts(@Param("maxPrice") BigDecimal maxPrice);
+
+    Page<Product> findByIsActiveTrue(Pageable pageable);
+
+    List<Product> findByStoreIdAndCategoryId(Long storeId, Long categoryId);
 }

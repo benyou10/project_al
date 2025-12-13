@@ -104,14 +104,24 @@ public class ProductService {
     public void deactivateProduct(Long id) {
         Product product = productRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Product not found"));
-        product.setActive(false);
+        product.setIsActive(false); // Changed from setActive to setIsActive
         productRepository.save(product);
     }
 
     public void activateProduct(Long id) {
         Product product = productRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Product not found"));
-        product.setActive(true);
+        product.setIsActive(true); // Changed from setActive to setIsActive
         productRepository.save(product);
+    }
+
+    // Additional useful methods
+    public Page<Product> findActiveProducts(Pageable pageable) {
+        // We need to add this method to the repository
+        return productRepository.findByIsActiveTrue(pageable);
+    }
+
+    public List<Product> findProductsByStoreAndCategory(Long storeId, Long categoryId) {
+        return productRepository.findByStoreIdAndCategoryId(storeId, categoryId);
     }
 }

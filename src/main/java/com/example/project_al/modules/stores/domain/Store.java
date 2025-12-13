@@ -46,6 +46,9 @@ public class Store extends BaseEntity {
     @OneToMany(mappedBy = "store", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Product> products = new ArrayList<>();
 
+    // REMOVE THIS LINE if it exists:
+    // private Boolean active = true; // This is already in BaseEntity as isActive
+
     public int verifyCityPro(Product product) {
         // Implémentation de la vérification
         return product != null ? 100 : 0;
